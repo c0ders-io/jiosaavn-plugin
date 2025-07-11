@@ -50,10 +50,18 @@ public class JioSaavnAudioSourceManager extends ExtendedAudioSourceManager {
             }
             
             String pathType = matcher.group(1);
-            String type = pathType.contains("song") ? "song" :
-                         pathType.contains("album") ? "album" :
-                         pathType.contains("artist") ? "artist" :
-                         pathType.contains("featured") || pathType.contains("playlist") ? "playlist" : null;
+            String type;
+            if (pathType.equals("song")) {
+                type = "song";
+            } else if (pathType.equals("album") || pathType.equals("p/album")) {
+                type = "album";
+            } else if (pathType.equals("artist")) {
+                type = "artist";
+            } else if (pathType.equals("featured") || pathType.equals("s/playlist") || pathType.equals("playlist")) {
+                type = "playlist";
+            } else {
+                type = null;
+            }
 
             switch (type) {
                 case "song":
